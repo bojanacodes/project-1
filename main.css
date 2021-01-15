@@ -1,0 +1,38 @@
+* {
+  box-sizing: border-box;
+}
+
+body {
+  height: 100vh;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
+  margin: 0
+}
+
+
+.global-grid {
+  display: flex;
+  flex-direction: row;
+  border: 1px solid green;
+  width: 600px;
+  height: 600px;
+  flex-wrap: wrap;
+  border: 6px solid green;
+}
+
+.local-grid {
+  display: flex;
+  flex-direction: row;
+  border: 1px solid green;
+  width: 200px;
+  height: 200px;
+  flex-wrap: wrap;
+  border: 2px solid green;
+}
+
+.cell {
+  border: 2px dotted green;
+  
+}
