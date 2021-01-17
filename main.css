@@ -49,6 +49,7 @@ body {
 }
 
 .o-class {
-  background-image: rel="images/O.png";
-  background-size: contain;
+ background-color: green;
+  /* background-image: rel="images/O.png";
+  background-size: contain; */
 }

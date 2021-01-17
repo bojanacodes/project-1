@@ -35,33 +35,46 @@ document.querySelectorAll('.cell').forEach(cell => {
   cell.classList.add('active')
 })
 
-
+let xoCounter = 0
 
 document.querySelectorAll('.cell').forEach(item => {
   item.addEventListener('click', event => {
     
     if (event.target.classList.contains('active')) {
-      event.target.classList.remove('active')
-      event.target.classList.add('x-class')
+      if (xoCounter === 0) {
+        event.target.classList.remove('active')
+        event.target.classList.add('x-class')
+        xoCounter += 1
+      } else if (xoCounter % 2 !== 0) {
+        event.target.classList.remove('active')
+        event.target.classList.add('o-class')
+        xoCounter += 1
+      } else {
+        event.target.classList.remove('active')
+        event.target.classList.add('x-class')
+        xoCounter += 1
+      }
       
-      console.log(event.target.getAttribute('id').charAt(4))
+      //console.log(event.target.getAttribute('id').charAt(4))
+     
       const targetNumber = event.target.getAttribute('id').charAt(4)
 
-      document.querySelectorAll('.local-grid').forEach(item => {
-        if (item.getAttribute('id') !== `grid${targetNumber}`) {
-          const blockedCells = Array.from(item.querySelectorAll('.cell'))
+      document.querySelectorAll('.local-grid').forEach(grid => {
+        const cellsToChange = Array.from(grid.querySelectorAll('.cell'))
 
-          blockedCells.forEach(item => {
-            item.classList.remove('active')
-            item.classList.add('blocked')
+        if (grid.getAttribute('id') !== `grid${targetNumber}`) {
+          cellsToChange.forEach(cell => {
+            cell.classList.remove('active')
+            cell.classList.add('blocked')
           })
-          
+        } else {
+          cellsToChange.forEach(cell => {
+            cell.classList.remove('blocked')
+            cell.classList.add('active')
+          })
         }
       })
     }
-    
-   
-    
   })
 })
 
@@ -69,10 +82,9 @@ document.querySelectorAll('.cell').forEach(item => {
 
 
 
-  // apply XO class to cell
-  //toggle event listeners?
-  // remove event listener from that cell (using target?)
-  // remove event listener from other boards except 1 [include full board rule (contains line-through class) => can play any board]
+
+
+  
   // check local grid for win
   // check global grid for win
   // BONUS: apply class to those other boards or to the chosen one?
@@ -94,7 +106,18 @@ document.querySelectorAll('.cell').forEach(item => {
 //QUESTION: this class is only applied to h1 not entire cell, why? had to comment out cell.innerHTML to remove the h1
 
 
+// function blockCell(cell) {
+//   flipCell(cell, 'active', 'blocked')
+// }
 
+// function unblockCell(cell) {
+//   flipCell(cell, 'blocked', 'active')
+// }
+
+// function flipCell(cell, from, to) {
+//   cell.classList.remove(from)
+//   cell.classList.add(to)
+// }
 
 
 
