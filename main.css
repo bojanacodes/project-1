@@ -11,7 +11,6 @@ body {
   margin: 0
 }
 
-
 .global-grid {
   display: flex;
   flex-direction: row;
@@ -34,5 +33,22 @@ body {
 
 .cell {
   border: 2px dotted green;
-  
+}
+
+.active {
+  background-color: yellow;
+}
+.blocked {
+  background-color: grey;
+}
+
+.x-class {
+  background-color: blue;
+  /* background-image: rel="images/X.png";
+  background-size: contain; */
+}
+
+.o-class {
+  background-image: rel="images/O.png";
+  background-size: contain;
 }
