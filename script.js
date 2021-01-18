@@ -2,6 +2,7 @@ const globalGrid = document.querySelector('.global-grid')
 const width = 3
 const globalGridArray = []
 
+//grid maker
 
 for (let i = 0; i < width ** 2; i++) {
   const localGrid = document.createElement('div')
@@ -12,8 +13,6 @@ for (let i = 0; i < width ** 2; i++) {
   localGrid.style.width = `${100 / width}%`
   localGrid.style.height = `${100 / width}%`
 }
-
-
 
 globalGridArray.forEach((localGrid) => {
 
@@ -29,7 +28,83 @@ globalGridArray.forEach((localGrid) => {
   }
 })
 
-//console.log(globalGridArray[0].querySelector('#cell5'))
+//functions checking if any grid wins
+
+function localGridChecker(currentNumber) { 
+  checkRows(currentNumber,'x-class')
+  checkRows(currentNumber, 'o-class')
+  checkColumns(currentNumber, 'x-class')
+  checkColumns(currentNumber, 'o-class')
+  checkDiagonals(currentNumber, 'x-class')
+  checkDiagonals(currentNumber, 'o-class')
+}
+
+function checkCell(currentNumber, cellName, xoClass) {
+  return globalGridArray[currentNumber].querySelector(cellName).classList.contains(xoClass)
+}
+
+function checkRows(currentNumber, xoClass) {
+  const isRow0Win = checkCell(currentNumber, '#cell0', xoClass) &&
+               checkCell(currentNumber, '#cell1', xoClass) &&
+               checkCell(currentNumber, '#cell2', xoClass)
+  const isRow1Win = checkCell(currentNumber, '#cell3', xoClass) &&
+               checkCell(currentNumber, '#cell4', xoClass) &&
+               checkCell(currentNumber, '#cell5', xoClass)
+  const isRow2Win = checkCell(currentNumber, '#cell6', xoClass) &&
+               checkCell(currentNumber, '#cell7', xoClass) &&
+               checkCell(currentNumber, '#cell8', xoClass)
+          
+  if (isRow0Win || isRow1Win || isRow2Win) {
+    globalGridArray[currentNumber].querySelectorAll('.cell').forEach(cell => {
+      cell.classList.add(xoClass)
+      console.log(cell.classList)
+      console.log(`globalGridArray${currentNumber} gains a XO class`)
+      //globalGridArray[currentNumber].classList.add(xoClass) //check this
+    })
+  }
+}
+
+function checkColumns(currentNumber, xoClass) {
+  const isCol0Win = checkCell(currentNumber, '#cell0', xoClass) && 
+                    checkCell(currentNumber, '#cell3', xoClass) &&
+                    checkCell(currentNumber, '#cell6', xoClass)
+
+  const isCol1Win = checkCell(currentNumber, '#cell1', xoClass) && 
+                    checkCell(currentNumber, '#cell4', xoClass) &&
+                    checkCell(currentNumber, '#cell7', xoClass)
+
+  const isCol2Win = checkCell(currentNumber, '#cell2', xoClass) && 
+                    checkCell(currentNumber, '#cell5', xoClass) &&
+                    checkCell(currentNumber, '#cell8', xoClass)
+  
+  if (isCol0Win || isCol1Win || isCol2Win) {
+    globalGridArray[currentNumber].querySelectorAll('.cell').forEach(cell => {
+      cell.classList.add(xoClass)
+      console.log(`globalGridArray${currentNumber} gains a XO class`)
+      //globalGridArray[currentNumber].classList.add(xoClass) //check this
+    })
+  }
+}
+
+function checkDiagonals(currentNumber, xoClass) {
+  const isDiagonal0Win = checkCell(currentNumber, '#cell0', xoClass) && 
+                        checkCell(currentNumber, '#cell4', xoClass) &&
+                        checkCell(currentNumber, '#cell8', xoClass)
+
+  const isDiagonal2Win = checkCell(currentNumber, '#cell2', xoClass) && 
+                          checkCell(currentNumber, '#cell4', xoClass) &&
+                          checkCell(currentNumber, '#cell6', xoClass)
+
+  if (isDiagonal0Win || isDiagonal2Win) {
+    globalGridArray[currentNumber].querySelectorAll('.cell').forEach(cell => {
+      cell.classList.add(xoClass)
+      console.log(`globalGridArray${currentNumber} gains a XO class`)
+      //globalGridArray[currentNumber].classList.add(xoClass) //check this
+    })
+  }
+}
+
+//game rules
 
 document.querySelectorAll('.cell').forEach(cell => {
   cell.classList.add('active')
@@ -39,25 +114,28 @@ let xoCounter = 0
 
 document.querySelectorAll('.cell').forEach(item => {
   item.addEventListener('click', event => {
+    const targetNumber = event.target.getAttribute('id').charAt(4)
+    const currentNumber = event.target.parentNode.getAttribute('id').charAt(4)
+   
     
+    console.log(`targetNumber is ${targetNumber}`)
+
     if (event.target.classList.contains('active')) {
-      if (xoCounter === 0) {
+      if (xoCounter % 2 === 0) {
+    
         event.target.classList.remove('active')
         event.target.classList.add('x-class')
-        xoCounter += 1
-      } else if (xoCounter % 2 !== 0) {
+        localGridChecker(currentNumber)
+
+      } else {
+        
         event.target.classList.remove('active')
         event.target.classList.add('o-class')
-        xoCounter += 1
-      } else {
-        event.target.classList.remove('active')
-        event.target.classList.add('x-class')
-        xoCounter += 1
+        localGridChecker(currentNumber)
+        
       }
-      
-      //console.log(event.target.getAttribute('id').charAt(4))
-     
-      const targetNumber = event.target.getAttribute('id').charAt(4)
+
+      xoCounter += 1
 
       document.querySelectorAll('.local-grid').forEach(grid => {
         const cellsToChange = Array.from(grid.querySelectorAll('.cell'))
@@ -69,8 +147,10 @@ document.querySelectorAll('.cell').forEach(item => {
           })
         } else {
           cellsToChange.forEach(cell => {
-            cell.classList.remove('blocked')
-            cell.classList.add('active')
+            if (cell.classList.contains('x-class') === false && cell.classList.contains('o-class') === false) {
+              cell.classList.remove('blocked')
+              cell.classList.add('active')
+            }
           })
         }
       })
@@ -84,24 +164,8 @@ document.querySelectorAll('.cell').forEach(item => {
 
 
 
-  
-  // check local grid for win
-  // check global grid for win
-  // BONUS: apply class to those other boards or to the chosen one?
 
-
-
-
-// localGridChecker Function
-// if XO class is applied on 3-in-a-horizontal-row [0, 1, 2] || 3-in-a-vertical-row  [0, 3, 6] || 3-diagonally [0,4, 8]
-// apply line-through class
-
-
-
-// globalGridChecker Function
-// if line-through class is applied on 3-in-a-horizontal-row [0, 1, 2] || 3-in-a-vertical-row  [0, 3, 6] || 3-diagonally [0,4, 8]
-
-
+//
 //event.target.classList.add('x-class')
 //QUESTION: this class is only applied to h1 not entire cell, why? had to comment out cell.innerHTML to remove the h1
 
@@ -118,6 +182,9 @@ document.querySelectorAll('.cell').forEach(item => {
 //   cell.classList.remove(from)
 //   cell.classList.add(to)
 // }
+
+
+     
 
 
 
