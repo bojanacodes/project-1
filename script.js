@@ -2,6 +2,9 @@ const globalGrid = document.querySelector('.global-grid')
 const width = 3
 const globalGridArray = []
 
+// const localGrid = document.querySelector('#grid0')
+// console.log(localGrid)
+
 //grid maker
 
 for (let i = 0; i < width ** 2; i++) {
@@ -28,35 +31,7 @@ globalGridArray.forEach((localGrid) => {
   }
 })
 
-//functions checking if any grid wins
-
-function localGridChecker(currentNumber) {
-  // checkRows(currentNumber, 'x-class')
-  // checkRows(currentNumber, 'o-class')
-  // checkColumns(currentNumber, 'x-class')
-  // checkColumns(currentNumber, 'o-class')
-  // checkDiagonals(currentNumber, 'x-class')
-  // checkDiagonals(currentNumber, 'o-class')
-
-  localGridCheckerForClass(currentNumber, 'x-class')
-  localGridCheckerForClass(currentNumber, 'o-class')
-}
-
-function localGridCheckerForClass(currentNumber, xoClass) {
-  const isWin = checkRows(currentNumber, xoClass) ||
-                checkColumns(currentNumber, xoClass) ||
-                checkDiagonals(currentNumber, xoClass)
-
-  if (isWin) {
-    globalGridArray[currentNumber].querySelectorAll('.cell').forEach(cell => {
-      cell.classList.remove('x-class')
-      cell.classList.remove('o-class')
-      cell.classList.add(xoClass)
-      console.log(`globalGridArray${currentNumber} gains a XO class`)
-      //globalGridArray[currentNumber].classList.add(xoClass) //check this
-    })
-  }
-}
+//functions checking if any local grid wins
 
 function checkCell(currentNumber, cellName, xoClass) {
   return globalGridArray[currentNumber].querySelector(cellName).classList.contains(xoClass)
@@ -75,14 +50,6 @@ function checkRows(currentNumber, xoClass) {
 
   return isRow0Win || isRow1Win || isRow2Win
 
-  // if (isRow0Win || isRow1Win || isRow2Win) {
-  //   globalGridArray[currentNumber].querySelectorAll('.cell').forEach(cell => {
-  //     cell.classList.add(xoClass)
-  //     console.log(cell.classList)
-  //     console.log(`globalGridArray${currentNumber} gains a XO class`)
-  //     //globalGridArray[currentNumber].classList.add(xoClass) //check this
-  //   })
-  // }
 }
 
 function checkColumns(currentNumber, xoClass) {
@@ -99,14 +66,6 @@ function checkColumns(currentNumber, xoClass) {
     checkCell(currentNumber, '#cell8', xoClass)
 
   return isCol0Win || isCol1Win || isCol2Win
-
-  // if (isCol0Win || isCol1Win || isCol2Win) {
-  //   globalGridArray[currentNumber].querySelectorAll('.cell').forEach(cell => {
-  //     cell.classList.add(xoClass)
-  //     console.log(`globalGridArray${currentNumber} gains a XO class`)
-  //     //globalGridArray[currentNumber].classList.add(xoClass) //check this
-  //   })
-  // }
 }
 
 function checkDiagonals(currentNumber, xoClass) {
@@ -119,14 +78,106 @@ function checkDiagonals(currentNumber, xoClass) {
     checkCell(currentNumber, '#cell6', xoClass)
 
   return isDiagonal0Win || isDiagonal2Win
+}
 
-  // if (isDiagonal0Win || isDiagonal2Win) {
-  //   globalGridArray[currentNumber].querySelectorAll('.cell').forEach(cell => {
-  //     cell.classList.add(xoClass)
-  //     console.log(`globalGridArray${currentNumber} gains a XO class`)
-  //     //globalGridArray[currentNumber].classList.add(xoClass) //check this
-  //   })
-  // }
+function localGridCheckerForClass(currentNumber, xoClass) {
+  const isWin = checkRows(currentNumber, xoClass) ||
+                checkColumns(currentNumber, xoClass) ||
+                checkDiagonals(currentNumber, xoClass)
+
+  if (isWin) {
+    globalGridArray[currentNumber].querySelectorAll('.cell').forEach(cell => {
+      cell.classList.remove('x-class')
+      cell.classList.remove('o-class')
+      cell.classList.add(xoClass)
+      //adding classList to local grid 
+      document.querySelector(`#grid${currentNumber}`).classList.add(xoClass)
+
+      //console.log(document.querySelector(`#grid${currentNumber}`).classList)
+      
+    })
+  }
+}
+
+function localGridChecker(currentNumber) {
+  
+  localGridCheckerForClass(currentNumber, 'x-class')
+  localGridCheckerForClass(currentNumber, 'o-class')
+}
+
+
+//functions checking if global grid win
+
+function checkLocalGrid(gridId, xoClass) {
+  const localGrid = document.querySelector(gridId)
+  console.log(localGrid)
+  console.log(localGrid.classList.contains(xoClass))
+  return localGrid.classList.contains(xoClass)
+}
+
+function checkGlobalRows(xoClass) {
+  const isRow0Win = checkLocalGrid('#grid0', xoClass) &&
+    checkLocalGrid('#grid1', xoClass) &&
+    checkLocalGrid('#grid2', xoClass)
+  const isRow1Win = checkLocalGrid('#grid3', xoClass) &&
+    checkLocalGrid('#grid4', xoClass) &&
+    checkLocalGrid('#grid5', xoClass)
+  const isRow2Win = checkLocalGrid('#grid6', xoClass) &&
+    checkLocalGrid('#grid7', xoClass) &&
+    checkLocalGrid('#grid8', xoClass)
+
+  return isRow0Win || isRow1Win || isRow2Win
+}
+
+function checkGlobalColumns(xoClass) {
+  const isCol0Win = checkLocalGrid('#grid0', xoClass) &&
+  checkLocalGrid('#grid3', xoClass) &&
+  checkLocalGrid('#grid6', xoClass)
+
+  const isCol1Win = checkLocalGrid('#grid1', xoClass) &&
+  checkLocalGrid('#grid4', xoClass) &&
+  checkLocalGrid('#grid7', xoClass)
+
+  const isCol2Win = checkLocalGrid('#grid2', xoClass) &&
+  checkLocalGrid('#grid5', xoClass) &&
+  checkLocalGrid('#grid8', xoClass)
+
+  return isCol0Win || isCol1Win || isCol2Win
+}
+
+function checkGlobalDiagonals(xoClass) {
+  const isDiagonal0Win = checkLocalGrid('#grid0', xoClass) &&
+  checkLocalGrid('#grid4', xoClass) &&
+  checkLocalGrid('#grid8', xoClass)
+
+  const isDiagonal2Win = checkLocalGrid('#grid2', xoClass) &&
+  checkLocalGrid('#grid4', xoClass) &&
+  checkLocalGrid('#grid6', xoClass)
+
+  return isDiagonal0Win || isDiagonal2Win
+}
+
+function globalGridCheckerForClass(xoClass) {
+  const isWin = checkGlobalRows(xoClass) ||
+                checkGlobalColumns(xoClass) ||
+                checkGlobalDiagonals(xoClass)
+
+  if (isWin) {
+    globalGrid.querySelectorAll('.cell').forEach(cell => {
+      cell.classList.remove('x-class')
+      cell.classList.remove('o-class')
+      cell.classList.add(xoClass)
+      console.log(`${xoClass} wins`)
+      //!add alert here too
+
+    })
+  }
+}
+
+function globalGridChecker() {
+  globalGridCheckerForClass('x-class')
+  globalGridCheckerForClass('o-class')
+  
 }
 
 //game rules
@@ -146,7 +197,7 @@ document.querySelectorAll('.cell').forEach(item => {
     }
 
 
-    console.log(`targetNumber is ${targetNumber}`)
+    //console.log(`targetNumber is ${targetNumber}`)
 
     if (event.target.classList.contains('active')) {
       if (xoCounter % 2 === 0) {
@@ -154,12 +205,14 @@ document.querySelectorAll('.cell').forEach(item => {
         event.target.classList.remove('active')
         event.target.classList.add('x-class')
         localGridChecker(currentNumber)
+        globalGridChecker()
 
       } else {
 
         event.target.classList.remove('active')
         event.target.classList.add('o-class')
         localGridChecker(currentNumber)
+        globalGridChecker()
 
       }
 
@@ -196,44 +249,6 @@ document.querySelectorAll('.cell').forEach(item => {
     }
   })
 })
-
-
-
-//       document.querySelectorAll('.local-grid').forEach(grid => {
-//         const cellsToChange = Array.from(grid.querySelectorAll('.cell'))
-//         function hasXOClass(cell) {
-//           return cell.classList.contains('x-class') || cell.classList.contains('o-class')
-//         }
-//         if (grid.getAttribute('id') !== `grid${targetNumber}`) { //for all grids EXCEPT target grid
-//           cellsToChange.forEach(cell => {
-//             cell.classList.remove('active')
-//             cell.classList.add('blocked')
-//           })
-//           //! check this
-//         } else { //for target grid - 2 options, grid full or not 
-//           console.log(cellsToChange)
-//           if (cellsToChange.every(hasXOClass)) { //target grid full: unblock every available cell in any grid
-//             console.log("hello")
-//             document.querySelectorAll('.cell').forEach(cell => {
-//               if (cell.classList.contains('x-class') === false && cell.classList.contains('o-class') === false) {
-//                 cell.classList.remove('blocked')
-//                 cell.classList.add('active')
-//               }
-//             })
-//           } else { //target grid not full: unblock free cells from target grid only
-//             cellsToChange.forEach(cell => {
-//               if (cell.classList.contains('x-class') === false && cell.classList.contains('o-class') === false) {
-//                 cell.classList.remove('blocked')
-//                 cell.classList.add('active')
-//               }
-//             })
-//           }
-//         }
-//       })
-//     }
-//   })
-// })
-
 
 
 
