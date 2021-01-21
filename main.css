@@ -13,6 +13,7 @@ body {
   font-family: 'Russo One', sans-serif;
   color: white;
 }
+
 header {
   display: flex;
   justify-content: center;
@@ -20,10 +21,10 @@ header {
   padding: 10px 20px 0 20px;
 }
 
+
 .global-grid {
   display: flex;
   flex-direction: row;
-  border: 1px solid green;
   width: 600px;
   height: 600px;
   flex-wrap: wrap;
@@ -53,19 +54,16 @@ header {
 }
 
 .active {
-  /* background-color: yellow; */
   background-image: url(images/space.jpg);
   background-size: cover;
 }
 
 .x-class {
-  /* background-color: blue; */
   background-image: url(images/shuttle.jpg);
   background-size: cover;
 }
 
 .o-class {
- /* background-color: green; */
   background-image: url(images/ufo.jpg);
   background-size: cover;
 }
@@ -136,4 +134,55 @@ li {
 
 p {
   color: white;
+}
+
+#x-class-win {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items:center;
+  text-align:center;
+  width: 300px;
+  height: 300px;
+  /* flex-wrap: wrap; */
+  border:  6px solid #337193;
+  border-radius: 10%;
+  padding: 15px 15px 15px 15px;
+  margin: 5px;
+  background-color:#27536B;
+  font-size: 25px;
+}
+
+#o-class-win {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items:center;
+  text-align:center;
+  width: 300px;
+  height: 300px;
+  /* flex-wrap: wrap; */
+  border:  6px solid #337193;
+  border-radius: 10%;
+  padding: 15px 15px 15px 15px;
+  margin: 5px;
+  background-color:#27536B;
+  font-size: 25px;
+}
+
+#tie {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items:center;
+  text-align:center;
+  width: 300px;
+  height: 300px;
+  /* flex-wrap: wrap; */
+  border:  6px solid #337193;
+  border-radius: 10%;
+  padding: 15px 15px 15px 15px;
+  margin: 5px;
+  background-color:#27536B;
+  font-size: 25px;
 }

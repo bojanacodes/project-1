@@ -2,6 +2,11 @@ const globalGrid = document.querySelector('.global-grid')
 const width = 3
 const globalGridArray = []
 
+document.querySelector('#x-class-win').style.display = 'none'
+document.querySelector('#o-class-win').style.display = 'none'
+document.querySelector('#tie').style.display = 'none'
+
+
 // const localGrid = document.querySelector('#grid0')
 // console.log(localGrid)
 
@@ -90,11 +95,7 @@ function localGridCheckerForClass(currentNumber, xoClass) {
       cell.classList.remove('x-class')
       cell.classList.remove('o-class')
       cell.classList.add(xoClass)
-      //adding classList to local grid 
       document.querySelector(`#grid${currentNumber}`).classList.add(xoClass)
-
-      //console.log(document.querySelector(`#grid${currentNumber}`).classList)
-      
     })
   }
 }
@@ -173,17 +174,37 @@ function globalGridCheckerForClass(xoClass) {
     globalGrid.querySelectorAll('.local-grid').forEach(grid => {
       grid.classList.remove('x-class')
       grid.classList.remove('o-class')
-      grid.classList.add(xoClass)
-    })
-  }
+      grid.classList.add(xoClass) 
 
-//!add alert here too
+      
+    })
+    //!add win alert here 
+    document.querySelector(`#${xoClass}-win`).style.display = 'block' 
+    
+  }
+  return isWin
 }
 
 function globalGridChecker() {
-  globalGridCheckerForClass('x-class')
-  globalGridCheckerForClass('o-class')
+  const isXWin = globalGridCheckerForClass('x-class') //returns isWin
+  const isOWin = globalGridCheckerForClass('o-class') //returns isWin
+  //is the grid full without a win
+  if (!isXWin && !isOWin && isGlobalGridBlocked()) {
+    document.querySelector('#tie').style.display = 'block'
+  }
   
+  
+}
+
+const isGlobalGridBlocked = function() {
+  const allCellsArray = Array.from(document.querySelectorAll('.cell'))
+
+  function cellCheck(cell) {
+    return cell.classList.contains('x-class') || cell.classList.contains('o-class')
+  }
+
+  return allCellsArray.every(cellCheck)
+
 }
 
 //game rules
@@ -210,17 +231,14 @@ document.querySelectorAll('.cell').forEach(item => {
 
         event.target.classList.remove('active')
         event.target.classList.add('x-class')
-        localGridChecker(currentNumber)
-        globalGridChecker()
-
       } else {
 
         event.target.classList.remove('active')
         event.target.classList.add('o-class')
-        localGridChecker(currentNumber)
-        globalGridChecker()
-
       }
+
+      localGridChecker(currentNumber)
+      globalGridChecker()
 
       xoCounter += 1
 
