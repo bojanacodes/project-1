@@ -8,8 +8,16 @@ body {
   justify-content: center;
   align-items: center;
   flex-direction: column;
-  margin: 0;
+  margin: 20px 0;
   background-color: #27536B;
+  font-family: 'Russo One', sans-serif;
+  color: white;
+}
+header {
+  display: flex;
+  justify-content: center;
+  font-size: 50px;
+  padding: 10px 20px 0 20px;
 }
 
 .global-grid {
@@ -21,8 +29,8 @@ body {
   flex-wrap: wrap;
   border: 6px solid #337193;
   border-radius: 20%;
-  padding: 15px;
-  margin: 50px;
+  padding: 15px 15px 15px 15px;
+  margin: 5px;
   background-color:#27536B;
 }
 
@@ -66,7 +74,8 @@ body {
   background-color: rgba(255, 255, 255, 0.6);
 }
 footer {
-  padding-bottom: 0; 
+  padding: 5px 10px 5px 10px;
+  margin: 5px;
 }
 
 ul {
@@ -74,7 +83,8 @@ ul {
   flex-direction: row;
   flex-wrap: wrap;
   justify-content: center;
-  padding: 28px;
+  padding: 2px;
+  margin: 2px;
 }
 
 li {
