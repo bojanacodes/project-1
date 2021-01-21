@@ -4,7 +4,7 @@ const globalGridArray = []
 
 document.querySelector('#x-class-win').style.display = 'none'
 document.querySelector('#o-class-win').style.display = 'none'
-document.querySelector('#tie').style.display = 'block'
+document.querySelector('#tie').style.display = 'none'
 
 
 //grid maker
