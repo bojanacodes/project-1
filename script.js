@@ -7,9 +7,6 @@ document.querySelector('#o-class-win').style.display = 'none'
 document.querySelector('#tie').style.display = 'none'
 
 
-// const localGrid = document.querySelector('#grid0')
-// console.log(localGrid)
-
 //grid maker
 
 for (let i = 0; i < width ** 2; i++) {
@@ -28,7 +25,6 @@ globalGridArray.forEach((localGrid) => {
     const cell = document.createElement('div')
     cell.classList.add('cell')
     cell.setAttribute('id', `cell${i}`)
-    //cell.innerHTML = `<h1>${i}</h1>`
     localGrid.appendChild(cell)
     cell.style.width = `${100 / width}%`
     cell.style.height = `${100 / width}%`
@@ -178,7 +174,7 @@ function globalGridCheckerForClass(xoClass) {
 
       
     })
-    //!add win alert here 
+    
     document.querySelector(`#${xoClass}-win`).style.display = 'block' 
     
   }
@@ -186,9 +182,9 @@ function globalGridCheckerForClass(xoClass) {
 }
 
 function globalGridChecker() {
-  const isXWin = globalGridCheckerForClass('x-class') //returns isWin
-  const isOWin = globalGridCheckerForClass('o-class') //returns isWin
-  //is the grid full without a win
+  const isXWin = globalGridCheckerForClass('x-class') 
+  const isOWin = globalGridCheckerForClass('o-class')
+  
   if (!isXWin && !isOWin && isGlobalGridBlocked()) {
     document.querySelector('#tie').style.display = 'block'
   }
@@ -222,9 +218,6 @@ document.querySelectorAll('.cell').forEach(item => {
     function hasXOClass(cell) {
       return cell.classList.contains('x-class') || cell.classList.contains('o-class')
     }
-
-
-    //console.log(`targetNumber is ${targetNumber}`)
 
     if (event.target.classList.contains('active')) {
       if (xoCounter % 2 === 0) {
@@ -279,24 +272,6 @@ document.querySelectorAll('.cell').forEach(item => {
 
 
 
-
-//
-//event.target.classList.add('x-class')
-//QUESTION: this class is only applied to h1 not entire cell, why? had to comment out cell.innerHTML to remove the h1
-
-
-// function blockCell(cell) {
-//   flipCell(cell, 'active', 'blocked')
-// }
-
-// function unblockCell(cell) {
-//   flipCell(cell, 'blocked', 'active')
-// }
-
-// function flipCell(cell, from, to) {
-//   cell.classList.remove(from)
-//   cell.classList.add(to)
-// }
 
 
 
