@@ -3,7 +3,7 @@
 }
 
 body {
-  height: 100vh;
+  min-height: 100vh;
   display: flex;
   justify-content: center;
   align-items: center;
@@ -22,9 +22,8 @@ body {
   border: 6px solid #337193;
   border-radius: 20%;
   padding: 15px;
+  margin: 50px;
   background-color:#27536B;
-  /* background-image: url(images/space.jpg);
-  background-size: cover; */
 }
 
 .local-grid {
@@ -65,4 +64,66 @@ body {
 
 .blocked {
   background-color: rgba(255, 255, 255, 0.6);
+}
+footer {
+  padding-bottom: 0; 
+}
+
+ul {
+  display: flex;
+  flex-direction: row;
+  flex-wrap: wrap;
+  justify-content: center;
+  padding: 28px;
+}
+
+li {
+  text-decoration: none;
+  list-style: none;
+  height: 100px;
+  width: 100px;
+}
+
+#asteroid {
+  background-image: url(images/aster.jpg);
+  background-size: cover;
+}
+
+#rocket {
+  background-image: url(images/rocket.jpg);
+  background-size: cover;
+}
+
+#iss {
+  background-image: url(images/iss.jpg);
+  background-size: cover;
+}
+
+#rover {
+  background-image: url(images/rover.jpg);
+  background-size: cover;
+}
+
+#astronaut {
+  background-image: url(images/astronaut.jpg);
+  background-size: cover;
+}
+
+#earth {
+  background-image: url(images/earth.jpg);
+  background-size: cover;
+}
+
+#satellite {
+  background-image: url(images/sat.jpg);
+  background-size: cover;
+}
+
+#ufo {
+  background-image: url(images/ufo2.jpg);
+  background-size: cover;
+}
+
+p {
+  color: white;
 }

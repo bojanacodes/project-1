@@ -164,15 +164,20 @@ function globalGridCheckerForClass(xoClass) {
 
   if (isWin) {
     globalGrid.querySelectorAll('.cell').forEach(cell => {
-      //this can be changed - skip changing classes and just do alert?
       cell.classList.remove('x-class')
       cell.classList.remove('o-class')
       cell.classList.add(xoClass)
       console.log(`${xoClass} wins`)
-      //!add alert here too
+    })
 
+    globalGrid.querySelectorAll('.local-grid').forEach(grid => {
+      grid.classList.remove('x-class')
+      grid.classList.remove('o-class')
+      grid.classList.add(xoClass)
     })
   }
+
+//!add alert here too
 }
 
 function globalGridChecker() {
