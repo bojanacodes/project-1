@@ -135,7 +135,6 @@ p {
   color: white;
   justify-content: center;
   text-align: center;
-  /* font-size: 15px; */
 }
 
 a {
@@ -208,6 +207,7 @@ a:hover {
   .global-grid {
     height: 380px;
     width: 380px;
+    padding: 8px 8px 8px 8px;
   }
 
   #rover {
@@ -247,9 +247,5 @@ a:hover {
     height: 250px;
     font-size: 20px;
   }
-
-  /* p {
-    font-size: 12px;
-  } */
 
 }
